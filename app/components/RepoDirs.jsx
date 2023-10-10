@@ -1,23 +1,21 @@
-import React from 'react';
-import Link from 'next/link';
+import React from 'react'
+import Link from 'next/link'
 
 async function fetchRepoContents(name) {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 3000))
   const response = await fetch(
     `https://api.github.com/repos/bushbass/${name}/contents`,
     {
       next: { revalidate: 60 },
     }
-  );
-  const contents = await response.json();
-  return contents;
+  )
+  const contents = await response.json()
+  return contents
 }
 
 const RepoDirs = async ({ name }) => {
-  const contents = await fetchRepoContents(name);
-  console.log({ contents });
-  const dirs = contents.filter((content) => content.type === 'dir');
-  console.log('dirs', dirs);
+  const contents = await fetchRepoContents(name)
+  const dirs = contents.filter((content) => content.type === 'dir')
   return (
     <>
       <h3>Directories </h3>
@@ -29,7 +27,7 @@ const RepoDirs = async ({ name }) => {
         ))}
       </ul>
     </>
-  );
-};
+  )
+}
 
-export default RepoDirs;
+export default RepoDirs
